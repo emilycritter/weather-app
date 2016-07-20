@@ -47,3 +47,5 @@ end
 
 gem 'forecast_io'
 gem 'geocoder'
+gem 'bootstrap-sass'
+gem 'font-awesome-sass'
