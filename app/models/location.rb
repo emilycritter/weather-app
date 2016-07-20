@@ -1,4 +1,19 @@
 class Location < ActiveRecord::Base
-  geocoded_by :user_input
-  after_validation :geocode if :user_input
+  require 'forecast_io'
+  require 'geocoder'
+  require 'hashie'
+
+  after_validation :get_weather
+
+  ForecastIO.configure do |configuration|
+    configuration.api_key = 'd48a8d969d33a04febae75e317c173bb'
+  end
+
+  def get_weather
+    geocode = Geocoder.search(self.location_input)
+    coordinates = {latitude: geocode[0].latitude, longitude: geocode[0].longitude}
+    response = ForecastIO.forecast(coordinates[:latitude].to_f, coordinates[:longitude].to_f).currently
+    forecast = response.to_h.deep_symbolize_keys!
+    self.result = forecast
+  end
 end

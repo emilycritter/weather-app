@@ -1,5 +1,8 @@
 class LocationsController < ApplicationController
   def index
+    @location = Location.first
+    @currently = eval(@location.result)
+    @location.save
   end
 
   def create
@@ -16,6 +19,6 @@ class LocationsController < ApplicationController
   private
 
   def location_params
-    params.require(:location).permit(:user, :user_input, :latitude, :longitude, :result)
+    params.require(:location).permit(:user, :location_input, :result)
   end
 end

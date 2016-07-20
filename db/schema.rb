@@ -20,9 +20,7 @@ ActiveRecord::Schema.define(version: 20160719175506) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user"
-    t.string   "user_input"
-    t.string   "latitude"
-    t.string   "longitude"
+    t.string   "location_input"
     t.string   "result"
   end
 
