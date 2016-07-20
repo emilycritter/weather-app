@@ -1,6 +1,9 @@
 class LocationsController < ApplicationController
+  require 'geocoder'
+
   def index
     @location = Location.first
+    @city = Geocoder.search(@location.location_input)[0].formatted_address
     @currently = eval(@location.result)
     @location.save
   end
