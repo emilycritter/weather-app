@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root 'locations#index'
+
+  get 'locations' => 'locations#index', as: :location
+  post 'locations' => 'locations#create', as: :location_new
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

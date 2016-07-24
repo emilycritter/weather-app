@@ -1,9 +1,27 @@
 <h1>What's my weather?</h1>
 <br />
-<div class="input-group">
-  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
-  <input type="text" class="form-control" placeholder="Location" aria-describedby="basic-addon1">
-</div>
+<%= form_for @location, :html => { :class => "form-horizontal" }, method: :post do |f| %>
+  <!-- Error Messages -->
+  <% if @location.errors.any? %>
+    <div class="alert alert-danger alert-dismissable">
+      <button aria-hidden="true" class="close" data-dismiss="alert" type="button">&times;</button>
+      <h4>
+        <%= "#{pluralize(@location.errors.count, "error")} prevented us from fetching your weather" %>
+      </h4>
+      <ul>
+        <% @location.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="input-group <%= has_error?( @location, :location_input ) ? "" : "has-success" %>">
+    <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+    <%= f.text_field :location_input, class: "form-control", placeholder: "Location" %>
+  </div>
+<% end %>
 <br />
 <%= @type %>
 <div class="row">
