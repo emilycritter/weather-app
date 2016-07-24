@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  // Geolocate
   $('#basic-addon1').click(function(event) {
     event.preventDefault();
     $.ajax({
@@ -14,4 +15,14 @@ $(document).ready(function() {
       }
     });
   });
+
+  // Resize window pane when image changes or the browser window is resized
+  var resizeWindow = function(){
+    var height = $("img.display-image").height();
+    var width = $("img.display-image").width();
+    console.log(height);
+    $(".window").css("height", height).css("width", width);
+  }
+  $('img').on('load', resizeWindow);
+  $(window).resize(resizeWindow);
 });
