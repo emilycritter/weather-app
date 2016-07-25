@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  // Hide venues on page load
+  $('#names').closest('.row').hide();
+
   // Geolocate
   $('#basic-addon1').click(function(event) {
     event.preventDefault();
@@ -16,6 +19,7 @@ $(document).ready(function() {
     });
   });
 
+
   // Resize window pane when image changes or the browser window is resized
   var resizeWindow = function(){
     var height = $("img.display-image").height();
@@ -23,6 +27,8 @@ $(document).ready(function() {
     console.log(height);
     $(".window").css("height", height).css("width", width);
   }
-  $('img').on('load', resizeWindow);
+  resizeWindow();
+  $('img').load(resizeWindow);
   $(window).resize(resizeWindow);
+  $(window).load(resizeWindow);
 });

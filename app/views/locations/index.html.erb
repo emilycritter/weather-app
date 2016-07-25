@@ -17,7 +17,7 @@
       </ul>
     </div>
   <% end %>
-  <div class="input-group <%= has_error?( @location, :location_input ) ? "" : "has-success" %>">
+  <div class="input-group">
     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
     <%= f.text_field :location_input, class: "form-control", placeholder: "Location" %>
   </div>
@@ -28,23 +28,52 @@
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <div class="thumbnail">
-      <img src="assets/test.jpg" alt="" class="display-image"/>
+      <img src="assets/unknown.jpg" alt="" class="display-image"/>
       <%= image_tag 'window.png', class: "window" %>
       <div class="caption">
-        <% if @currently.present? %>
+        <% if @currently.present? && @city %>
           <h3><%= @city %></h3>
           <p>Currently:
             <%= @currently[:summary] %>
             <% if @currently[:temperature] %>
-              <%= @currently[:temperature] %>&deg;F
+              <%= @currently[:temperature].to_i %>&deg;F
             <% end %>
             <% if @currently[:humidity] %>
               (<%= @currently[:humidity]*100 %>% humidity)
             <% end %>
           </p>
-          <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+          <p><span class="btn btn-primary" role="button">What's popular in <%= @city %>?</span> <span class="btn btn-default" role="button">Live Weather Tweets</span></p>
         <% end %>
       </div>
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="thumbnail">
+      <div class="caption" id="names"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.btn-primary').click(function() {
+    var config = {
+      clientId: 'KCMQ3CHAXOVBEXJFM15U4FMB0RKHPZZDI54AJKYL13VYMSM1',
+      clientSecret: 'W4Y1IDYAZF55XD2CCEBG0IH1ONT10UARRBVVDDHVJ1OWJSY0',
+      authUrl: 'https://foursquare.com/',
+      apiUrl: 'https://api.foursquare.com/v2/venues/search?'
+    };
+
+    var date = new Date().toISOString().slice(0,10).replace(/\-/g, '');
+
+    $.getJSON(config.apiUrl + "near=<%= @city %>&limit=10&client_id=" + config.clientId + '&client_secret=' + config.clientSecret + '&v=' + date + '&categoryId=4d4b7104d754a06370d81259', function(data) {
+        console.log(data);
+        $.each(data.response.venues, function(i,venue){
+          content = '<p><strong>' + venue.name + '</strong>: ' + venue.url + '</p>';
+          $(content).appendTo("#names");
+       });
+    });
+    $('#names').closest('.row').show();
+  });
+</script>

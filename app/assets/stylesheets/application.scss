@@ -11,24 +11,35 @@ h1 {
   text-align: center;
 }
 .input-group {
-  max-width: 70%;
+  max-width: 50%;
   margin: 0 auto;
   .input-group-addon:hover {
     font-size: 110%;
   }
+  @media screen and (max-width: 768px) {
+    max-width: 75%;
+  }
 }
 .row {
-  max-width: 70%;
+  max-width: 50%;
   margin: 0 auto;
   .col-sm-12, .col-md-12 {
     padding: 0;
   }
+  @media screen and (max-width: 768px) {
+    max-width: 75%;
+  }
 }
 .display-image {
   position: relative;
+  width: 100%
 }
 .window {
   position: absolute;
   left: 5px;
   top: 5px;
+}
+.btn {
+  margin: 5px 0px;
+  white-space: normal;
 }

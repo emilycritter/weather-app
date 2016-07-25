@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   require 'geocoder'
+  require 'twitter'
 
   def index
     location = Location.where(user: @current_user_ip).last

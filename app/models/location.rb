@@ -9,8 +9,12 @@ class Location < ActiveRecord::Base
     configuration.api_key = 'd48a8d969d33a04febae75e317c173bb'
   end
 
-  def get_weather
+  def geocode
     geocode = Geocoder.search(self.location_input)
+  end
+
+  def get_weather
+    geocode
     if geocode != []
       coordinates = {latitude: geocode[0].latitude, longitude: geocode[0].longitude}
       response = ForecastIO.forecast(coordinates[:latitude].to_f, coordinates[:longitude].to_f).currently
