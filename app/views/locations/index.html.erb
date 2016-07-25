@@ -72,17 +72,20 @@
     $.getJSON(config.apiUrl + "near=<%= @city %>&limit=10&client_id=" + config.clientId + '&client_secret=' + config.clientSecret + '&v=' + date + '&categoryId=4d4b7104d754a06370d81259', function(data) {
         console.log(data);
         $.each(data.response.venues, function(i,venue){
-          var url, icon;
-          if (venue.url != 'undefined'){
-            url = '<a href src="' + venue.url + '"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>'
+          var url, icon, address;
+          if (venue.url){
+            url = '<a href="' + venue.url + '"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>'
           } else {
             url = ''
           }
           if (venue.categories[0]){
             icon = '<img src="' + venue.categories[0].icon.prefix + 'bg_32.png">&nbsp;'
           }
-          content = '<p>' + icon + '<strong>' + venue.name + '</strong> ' + url + '<br>' + venue.hereNow.summary + '</p>';
+          content = '<p>' + icon + '<strong>' + venue.name + '</strong> ' + url + '</p>';
+          address = venue.location.formattedAddress.join().replace(/\, /g, '***').replace(/\,/g, '<br>').replace('***', ', ');
+          li = '<ul><li>' + venue.hereNow.summary + '</li><li>' + address + '</li></ul><hr>'
           $(content).appendTo("#names");
+          $(li).appendTo("#names");
        });
     });
     $('#names').closest('.row').show();
