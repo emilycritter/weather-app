@@ -47,17 +47,32 @@ h1 {
   font-size: 90%;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   .address {
     flex-grow: 1;
+    margin: 20px;
+    text-align: right;
+  }
+  @media screen and (max-width: 640px){
+    flex-direction: column;
+    .address {
+      text-align: left;
+    }
   }
   .map {
     flex-grow: 2;
     div {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      margin: 0 auto;
       img {
         max-width: 100%;
+        margin: 0 auto;
       }
+    }
+    .map-box-links {
+      display: inline;
     }
   }
 }
