@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   require 'geocoder'
-  require 'twitter'
+  require 'httparty'
 
   def index
     location = Location.where(user: @current_user_ip).last
@@ -11,6 +11,7 @@ class LocationsController < ApplicationController
     else
       @location = Location.first
     end
+    @response = ''
   end
 
   def create

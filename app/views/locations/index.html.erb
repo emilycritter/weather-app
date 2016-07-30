@@ -1,4 +1,5 @@
 <h1>What's my weather?</h1>
+<%= @response %>
 <br />
 <%= form_for @location, :html => { :class => "form-horizontal" }, method: :post do |f| %>
   <!-- Error Messages -->
@@ -42,7 +43,10 @@
               (<%= @currently[:humidity]*100 %>% humidity)
             <% end %>
           </p>
-          <p><span class="btn btn-primary" role="button">What's popular in <%= @city %>?</span> <span class="btn btn-default" role="button">Live Weather Tweets</span></p>
+          <p>
+            <span class="btn btn-primary" role="button">Get Forecast</span>
+            <span class="btn btn-default" role="button">What's popular in <%= @city %>?</span>
+          </p>
         <% end %>
       </div>
     </div>
@@ -53,42 +57,59 @@
     <div class="thumbnail">
       <div class="caption" id="names">
         <h3>Popular now in <%= @city %> <small>via Foursquare:</small></h3>
+        <% 10.times do |i| %>
+          <p class="venue_name" id="venue_<%= i %>"></p>
+          <p class="show-contact" id="venue_<%= i %>"><span class="btn btn-default btn-sm" id="show-contact" role="button">Show Contact</span></p>
+          <div class="map-container" id="venue_<%= i %>"><div class="address"></div><div class="map"></div></div>
+          <hr>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-
 <script type="text/javascript">
-  $('.btn-primary').click(function() {
-    $("#names").html('');
-    var config = {
-      clientId: 'KCMQ3CHAXOVBEXJFM15U4FMB0RKHPZZDI54AJKYL13VYMSM1',
-      clientSecret: 'W4Y1IDYAZF55XD2CCEBG0IH1ONT10UARRBVVDDHVJ1OWJSY0',
-      authUrl: 'https://foursquare.com/',
-      apiUrl: 'https://api.foursquare.com/v2/venues/search?'
-    };
+(function($) {
 
-    var date = new Date().toISOString().slice(0,10).replace(/\-/g, '');
+  // Foursquare
+    $('.btn-default').click(function() {
+      $("#names").show();
+      var config = {
+        clientId: 'KCMQ3CHAXOVBEXJFM15U4FMB0RKHPZZDI54AJKYL13VYMSM1',
+        clientSecret: 'W4Y1IDYAZF55XD2CCEBG0IH1ONT10UARRBVVDDHVJ1OWJSY0', // This key wouldn't ideally live in the view, but I'm trying to demonstrate jQuery skillset.
+        authUrl: 'https://foursquare.com/',
+        apiUrl: 'https://api.foursquare.com/v2/venues/search?'
+      };
 
-    $.getJSON(config.apiUrl + "near=<%= @city %>&limit=10&client_id=" + config.clientId + '&client_secret=' + config.clientSecret + '&v=' + date + '&categoryId=4d4b7104d754a06370d81259', function(data) {
-        console.log(data);
-        $.each(data.response.venues, function(i,venue){
-          var url, icon, address;
-          if (venue.url){
-            url = '<a href="' + venue.url + '"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>'
-          } else {
-            url = ''
-          }
-          if (venue.categories[0]){
-            icon = '<img src="' + venue.categories[0].icon.prefix + 'bg_32.png">&nbsp;'
-          }
-          content = '<p>' + icon + '<strong>' + venue.name + '</strong> ' + url + '</p>';
-          address = venue.location.formattedAddress.join().replace(/\, /g, '***').replace(/\,/g, '<br>').replace('***', ', ');
-          li = '<ul><li>' + venue.hereNow.summary + '</li><li>' + address + '</li></ul><hr>'
-          $(content).appendTo("#names");
-          $(li).appendTo("#names");
-       });
+      var date = new Date().toISOString().slice(0,10).replace(/\-/g, '');
+      var foursquareAPI = config.apiUrl + "near=<%= @city %>&limit=10&client_id=" + config.clientId + '&client_secret=' + config.clientSecret + '&v=' + date + '&categoryId=4d4b7104d754a06370d81259';
+      $.getJSON(foursquareAPI, function(data) {
+          console.log(data);
+          $.each(data.response.venues, function(i,venue){
+            var url, icon, address, show_contact;
+            if (venue.url){
+              url = '<a href="' + venue.url + '"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>'
+            } else {
+              url = ''
+            }
+            if (venue.categories[0]){
+              icon = '<img src="' + venue.categories[0].icon.prefix + 'bg_32.png">&nbsp;'
+            }
+            var content = '<p>' + icon + '<strong>' + venue.name + '</strong> ' + url + '</p><p><small><em><strong>Foursquare:</strong> ' + venue.hereNow.summary + '</em></small></p>';
+            var address = venue.location.formattedAddress.join().replace(/\, /g, '***').replace(/\,/g, '<br>').replace('***', ', ');
+            address = venue.contact.formattedPhone ? address + '<br>' + venue.contact.formattedPhone : address;
+            var map = '<div class="address">' + address + '</div><div class="map">' + venue.location.lng.toFixed(4)  + ',' + venue.location.lat.toFixed(4) + '</div>';
+            if (venue.location.formattedAddress && venue.location.lat && venue.location.lng) {
+              show_contact = '<p><span class="btn btn-default btn-sm" id="show-contact" role="button">Show Contact Information</span></p>';
+            } else {
+              show_contact = '';
+            }
+            $(`p#venue_${i}`).html(content);
+            $(`p.show-contact#venue_${i}`).html(show_contact);
+            $(`.map-container#venue_${i}`).html(map).hide();
+         });
+      });
+      $('#names').closest('.row').show();
     });
-    $('#names').closest('.row').show();
-  });
+  }(jQuery));
+
 </script>

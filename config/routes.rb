@@ -3,5 +3,4 @@ Rails.application.routes.draw do
 
   get 'locations' => 'locations#index', as: :location
   post 'locations' => 'locations#create', as: :location_new
-
 end
