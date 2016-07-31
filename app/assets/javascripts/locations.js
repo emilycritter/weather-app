@@ -37,11 +37,14 @@ $(document).ready(function() {
     $(this).hide();
     var closest_map_container = $(this).next();
     var map_div = $(closest_map_container).children('.map');
-    var lat_lng = $(map_div).html();
-    if (lat_lng.length > 0) {
+    var lng_lat = $(map_div).html();
+    if (lng_lat.length > 0) {
+      var lat_lng = lng_lat.split(',').reverse().toString();
+    }
+    if (lng_lat.length > 0 && lat_lng) {
       var api_key = 'pk.eyJ1IjoiZW1pbHljcml0dGVyIiwiYSI6ImNpbWdmZXhmYzAyMDV1NGx2bHM0MTNzNGYifQ.7KYzLItfXBfg5Zs-757BGw';
       var mapbox_anchor = '<div class="map-box-links">©<a href="https://www.mapbox.com/map-feedback/"> Mapbox</a> ©<a href="http://www.openstreetmap.org/copyright"> OpenStreetMap contributors</a></div>';
-      var map_img = '<div><img width="300" src="https://api.mapbox.com/v4/mapbox.high-contrast/pin-m-circle+285A98(' + lat_lng + ')/' + lat_lng + ',13/400x400.png?access_token=' + api_key + '">' + mapbox_anchor + '</div>';
+      var map_img = '<div><a href="https://www.google.com/maps/dir/Current+Location/' + lat_lng + '" target="_blank"><img width="300" src="https://api.mapbox.com/v4/mapbox.high-contrast/pin-m-circle+285A98(' + lng_lat + ')/' + lng_lat + ',13/400x400.png?access_token=' + api_key + '">' + mapbox_anchor + '</a></div>';
       $(map_div).html(map_img);
       var width = $(map_div).children('img').width();
       $(map_div).children('img').css('height', width);
