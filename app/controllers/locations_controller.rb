@@ -2,7 +2,7 @@ class LocationsController < ApplicationController
   require 'geocoder'
 
   def index
-    location = Location.where(user: remote_ip).last
+    location = Location.where(user: remote_ip).order(:updated_at).last
     if location && location.location_input.present? && location.result.present?
       @location = location
       @city = Geocoder.search(@location.location_input)[0].formatted_address.gsub(', USA', '')
@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @location = Location.new location_params
+    @location = Location.where(location_params, user: remote_ip, created_at: ["created_at >= ?", DateTime.now - 5.minutes]).first_or_initialize
     @location.user = remote_ip
     if @location.geolocate
       @location.location_input = request.location.city.present? ? request.location.city : ("Fort Worth")
