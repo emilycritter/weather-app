@@ -32,12 +32,13 @@ h1 {
 }
 .display-image {
   position: relative;
-  width: 100%
+  width: 100%;
+  border: 1px solid #fff;
 }
 .window {
   position: absolute;
-  left: 5px;
-  top: 5px;
+  left: 6px;
+  top: 6px;
 }
 .btn {
   margin: 5px 0px;

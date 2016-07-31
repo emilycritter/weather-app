@@ -33,15 +33,17 @@
       <div class="caption">
         <% if @currently.present? && @city %>
           <h3><%= @city %></h3>
-          <p>Currently:
-            <%= @currently[:summary] %>
-            <% if @currently[:temperature] %>
-              <%= @currently[:temperature].to_i %>&deg;F
-            <% end %>
-            <% if @currently[:humidity] %>
-              (<%= @currently[:humidity]*100 %>% humidity)
-            <% end %>
-          </p>
+          <div class="weather-details"><p class="weather-currently">Currently:
+            <%= @currently[:summary] %></p>
+            <p>
+              <% if @currently[:temperature] %>
+                <%= @currently[:temperature].to_i %>&deg;F
+              <% end %>
+              <% if @currently[:humidity] %>
+                (<%= @currently[:humidity]*100 %>% humidity)
+              <% end %>
+            </p>
+          </div>
           <p>
             <span class="btn btn-primary" role="button">What's popular in <%= @city %>?</span>
           </p>
@@ -54,7 +56,7 @@
   <div class="col-sm-12 col-md-12">
     <div class="thumbnail">
       <div class="caption" id="names">
-        <h3>Popular now in <%= @city %> <small>via Foursquare:</small></h3>
+        <h3>Popular in <%= @city %> <small>via Foursquare:</small></h3>
         <hr>
         <% 10.times do |i| %>
           <p class="venue_name" id="venue_<%= i %>"></p>

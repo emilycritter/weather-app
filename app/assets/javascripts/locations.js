@@ -51,4 +51,28 @@ $(document).ready(function() {
     }
     $(closest_map_container).show();
   });
+
+  // Change window image
+    var weather = $('.weather-currently').text().toLowerCase();
+    if (weather.indexOf("clear") >= 0) {
+      $('.display-image').attr('src', 'assets/clear.jpg');
+    } else if (weather.indexOf("partly cloudy") >= 0) {
+      $('.display-image').attr('src', 'assets/partly_cloudy.jpg');
+    } else if (weather.indexOf("rain") >= 0) {
+      $('.display-image').attr('src', 'assets/rainy.jpg');
+    } else if (weather.indexOf("drizzle") >= 0) {
+      $('.display-image').attr('src', 'assets/drizzle.jpg');
+    } else if (weather.indexOf("snow") >= 0) {
+      $('.display-image').attr('src', 'assets/snowy.jpg');
+    } else if (weather.indexOf("sleet") >= 0) {
+      $('.display-image').attr('src', 'assets/sleet.jpg');
+    } else if (weather.indexOf("fog") >= 0) {
+      $('.display-image').attr('src', 'assets/foggy.jpg');
+    } else if (weather.indexOf("cloudy") >= 0 || weather.indexOf("overcast") >= 0) {
+      $('.display-image').attr('src', 'assets/cloudy.jpg');
+    } else if (weather.indexOf("windy") >= 0) {
+      $('.display-image').attr('src', 'assets/windy.jpg');
+    } else {
+      $('.display-image').attr('src', 'assets/unknown.jpg');
+    }
 });
