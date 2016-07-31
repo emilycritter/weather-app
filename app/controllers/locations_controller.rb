@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @location = Location.where(location_params, user: remote_ip, created_at: ["created_at >= ?", DateTime.now - 5.minutes]).first_or_initialize
+    @location = Location.where(location_params, user: remote_ip).where('created_at >= ?', 5.minutes.ago).first_or_initialize
     @location.user = remote_ip
     if @location.geolocate
       @location.location_input = request.location.city.present? ? request.location.city : ("Fort Worth")
