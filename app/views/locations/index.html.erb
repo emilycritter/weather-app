@@ -59,10 +59,12 @@
         <h3>Popular in <%= @city %> <small>via Foursquare:</small></h3>
         <hr>
         <% 10.times do |i| %>
+        <div class="venue"id="venue_<%= i %>">
           <p class="venue_name" id="venue_<%= i %>"></p>
           <p class="show-contact" id="venue_<%= i %>"><span class="btn btn-default btn-sm" id="show-contact" role="button">Show Contact</span></p>
           <div class="map-container" id="venue_<%= i %>"><div class="address"></div><div class="map"></div></div>
           <hr>
+        </div>
         <% end %>
       </div>
     </div>
@@ -84,6 +86,7 @@
       var date = new Date().toISOString().slice(0,10).replace(/\-/g, '');
       var foursquareAPI = config.apiUrl + "near=<%= @city %>&limit=10&client_id=" + config.clientId + '&client_secret=' + config.clientSecret + '&v=' + date + '&categoryId=4d4b7104d754a06370d81259';
       $.getJSON(foursquareAPI, function(data) {
+          var venueCount = Object.keys(data.response.venues).length;
           console.log(data);
           $.each(data.response.venues, function(i,venue){
             var url, icon, address, show_contact;
@@ -108,7 +111,14 @@
             $(`p.show-contact#venue_${i}`).html(show_contact);
             $(`.map-container#venue_${i}`).html(map).hide();
          });
+         // Remove empty divs
+           if (venueCount < 10) {
+             for (i = venueCount; i <= 10; i++) {
+               $(`.venue#venue_${i}`).hide();
+             }
+           }
       });
+
       $('#names').closest('.row').show();
     });
   }(jQuery));

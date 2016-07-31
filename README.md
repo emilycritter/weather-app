@@ -2,7 +2,10 @@
 
 *Weather or Not* is a simple application that provides users with the current weather (based on current location or user input) and venues that are popular in the given.
 
+*current weather*
 ![landing_page](/screenshots/landing.png?raw=true)
+
+*local venues*
 ![landing_page](/screenshots/foursquare.png?raw=true)
 
 ### Purpose

@@ -75,4 +75,5 @@ $(document).ready(function() {
     } else {
       $('.display-image').attr('src', 'assets/unknown.jpg');
     }
+
 });
