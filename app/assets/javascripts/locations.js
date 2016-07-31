@@ -7,7 +7,7 @@ $(document).ready(function() {
       url: '/locations',
       data: {location: {geolocate: true, location_input: 'geolocate'}},
       success: function(data){
-        console.log(data);
+        location.reload();
         return false;
       },
       error: function(data){

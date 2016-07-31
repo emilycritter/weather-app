@@ -10,9 +10,4 @@ class ApplicationController < ActionController::Base
       request.remote_ip
     end
   end
-
-  def current_user
-    session[:user_ip] = remote_ip
-    @current_user_ip = session[:user_ip]
-  end
 end
