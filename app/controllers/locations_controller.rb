@@ -1,6 +1,5 @@
 class LocationsController < ApplicationController
   require 'geocoder'
-  require 'httparty'
 
   def index
     location = Location.where(user: @current_user_ip).last
