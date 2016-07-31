@@ -43,8 +43,7 @@
             <% end %>
           </p>
           <p>
-            <span class="btn btn-primary" role="button">Get Forecast</span>
-            <span class="btn btn-default" role="button">What's popular in <%= @city %>?</span>
+            <span class="btn btn-primary" role="button">What's popular in <%= @city %>?</span>
           </p>
         <% end %>
       </div>
@@ -71,7 +70,7 @@
 (function($) {
 
   // Foursquare
-    $('.btn-default').click(function() {
+    $('.btn-primary').click(function() {
       $("#names").show();
       var config = {
         clientId: 'KCMQ3CHAXOVBEXJFM15U4FMB0RKHPZZDI54AJKYL13VYMSM1',
@@ -96,7 +95,7 @@
             }
             var content = '<p>' + icon + '<strong>' + venue.name + '</strong> ' + url + '</p><p><small><em><strong>Foursquare:</strong> ' + venue.hereNow.summary + '</em></small></p>';
             var address = venue.location.formattedAddress.join().replace(/\, /g, '***').replace(/\,/g, '<br>').replace('***', ', ');
-            address = venue.contact.formattedPhone ? address + '<br>' + venue.contact.formattedPhone : address;
+            address = venue.contact.formattedPhone ? address + '<br><a href="tel:' + venue.contact.phone + '">' + venue.contact.formattedPhone + '</a>': address;
             var map = '<div class="address">' + address + '</div><div class="map">' + venue.location.lng.toFixed(4)  + ',' + venue.location.lat.toFixed(4) + '</div>';
             if (venue.location.formattedAddress && venue.location.lat && venue.location.lng) {
               show_contact = '<p><span class="btn btn-default btn-sm" id="show-contact" role="button">Show Contact Information</span></p>';
