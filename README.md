@@ -33,3 +33,5 @@ bundle install
 rake db:create
 rake db:migrate
 (no seed data necessary)
+rails s
+navigate to localhost in browser
