@@ -27,11 +27,17 @@ Weather or Not is a Rails application using jQuery and a PostgreSQL database.
 * mapbox : map venues - used in the view
 
 ### Use
-git clone https://github.com/emilycritter/weather-app.git
-cd weather-app
-bundle install
-rake db:create
-rake db:migrate
+* git clone https://github.com/emilycritter/weather-app.git
+* cd weather-app
+* bundle install
+* rake db:create
+* rake db:migrate
 (no seed data necessary)
-rails s
-navigate to localhost in browser
+* rails s
+* navigate to localhost in browser
+
+### To do:
+* deploy to Heroku
+* browser testing
+* test geolocation (issues with localhost)
+* add forecast data
