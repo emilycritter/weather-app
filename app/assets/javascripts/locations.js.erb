@@ -55,25 +55,25 @@ $(document).ready(function() {
   // Change window image
     var weather = $('.weather-currently').text().toLowerCase();
     if (weather.indexOf("clear") >= 0) {
-      $('.display-image').attr('src', 'assets/clear.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/clear.jpg') %>");
     } else if (weather.indexOf("partly cloudy") >= 0) {
-      $('.display-image').attr('src', 'assets/partly_cloudy.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/partly_cloudy.jpg') %>");
     } else if (weather.indexOf("rain") >= 0) {
-      $('.display-image').attr('src', 'assets/rainy.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/rainy.jpg') %>");
     } else if (weather.indexOf("drizzle") >= 0) {
-      $('.display-image').attr('src', 'assets/drizzle.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/drizzle.jpg') %>");
     } else if (weather.indexOf("snow") >= 0) {
-      $('.display-image').attr('src', 'assets/snowy.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/snowy.jpg') %>");
     } else if (weather.indexOf("sleet") >= 0) {
-      $('.display-image').attr('src', 'assets/sleet.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/sleet.jpg') %>");
     } else if (weather.indexOf("fog") >= 0) {
-      $('.display-image').attr('src', 'assets/foggy.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/foggy.jpg') %>");
     } else if (weather.indexOf("cloudy") >= 0 || weather.indexOf("overcast") >= 0) {
-      $('.display-image').attr('src', 'assets/cloudy.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/cloudy.jpg') %>");
     } else if (weather.indexOf("windy") >= 0) {
-      $('.display-image').attr('src', 'assets/windy.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/windy.jpg') %>");
     } else {
-      $('.display-image').attr('src', 'assets/unknown.jpg');
+      $('.display-image').attr('src', "<%= asset_path('assets/unknown.jpg') %>");
     }
 
 });

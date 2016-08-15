@@ -28,7 +28,7 @@
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <div class="thumbnail">
-      <img src="assets/unknown.jpg" alt="" class="display-image"/>
+      <%= image_tag 'unknown.png', class: "display-image" %>
       <%= image_tag 'window.png', class: "window" %>
       <div class="caption">
         <% if @currently.present? && @city %>
