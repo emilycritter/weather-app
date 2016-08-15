@@ -40,7 +40,7 @@
                 <%= @currently[:temperature].to_i %>&deg;F
               <% end %>
               <% if @currently[:humidity] %>
-                (<%= @currently[:humidity]*100.round(2) %>% humidity)
+                (<%= number_with_precision(@currently[:humidity]*100, precision: 1) %>% humidity)
               <% end %>
             </p>
           </div>
