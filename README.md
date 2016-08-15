@@ -1,6 +1,6 @@
 # [Weather or Not](http://emilycritter-weather.herokuapp.com/)
 
-*Weather or Not* is a simple application that provides users with the current weather (based on current location or user input) and venues that are popular in the given.
+*Weather or Not* is a simple application that provides users with the current weather (based on current location or user input) and venues that are popular in the provided location.
 
 *current weather*
 ![landing_page](/screenshots/landing.png?raw=true)
