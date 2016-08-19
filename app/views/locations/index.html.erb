@@ -91,7 +91,7 @@
           $.each(data.response.venues, function(i,venue){
             var url, icon, address, show_contact;
             if (venue.url){
-              url = '<a href="' + venue.url + '"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>'
+              url = '<a href="' + venue.url + '" target="_blank"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>'
             } else {
               url = ''
             }
