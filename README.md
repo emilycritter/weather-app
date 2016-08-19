@@ -32,7 +32,7 @@ Weather or Not is a Rails application using jQuery and a PostgreSQL database.
 * bundle install
 * rake db:create
 * rake db:migrate
-(no seed data necessary)
+* rake db:seed
 * rails s
 * navigate to localhost in browser
 
