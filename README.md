@@ -37,7 +37,6 @@ Weather or Not is a Rails application using jQuery and a PostgreSQL database.
 * navigate to localhost in browser
 
 ### To do:
-* deploy to Heroku
 * browser testing
-* test geolocation (issues with localhost)
 * add forecast data
+* improve UI
